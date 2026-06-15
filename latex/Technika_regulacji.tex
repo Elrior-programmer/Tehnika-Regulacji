@@ -1,0 +1,54 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage{geometry}
+\geometry{margin=1.5cm}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{booktabs} 
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{microtype}
+\usepackage{varwidth}
+\usepackage{multicol}
+\usepackage{amsmath}
+
+\title{
+    \begin{center}
+    \includegraphics[width=\textwidth]{fig/logo.png}
+    \vspace{0.25cm}
+    \end{center}
+    \textbf{\huge Technika Regulacji} \\
+    \vspace{0.5cm}
+    }
+\author{Piotr Frąc, Michał Czerezdrecki}
+\date{Czerwiec 2026}
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+\clearpage
+\begin{multicols*}{2}
+\section{Analiza układu dynamicznego}
+\subsubsection*{Wybór parametrów równania różniczkowego}
+\begin{center}
+    Dla ogólnego równania z instrukcji: 
+    \begin{equation}
+        \frac{d^2y}{dt^2} + a\frac{dy}{dt} + by = u(t) 
+    \end{equation}
+    Przyjęto wartości \textbf{a = 8 i b = 12}
+\end{center}
+\subsubsection*{Rozwiązanie analityczne równania}   
+    \begin{equation*}
+    \frac{d^2y}{dt^2} + 8\frac{dy}{dt} + 12y = u(t) \quad \Bigg| \ \mathcal{L}\{s\}
+    \end{equation*}
+    \begin{equation*}
+        s^2Y(s) + 8sY(s) + 12Y(s) = U(s) 
+    \end{equation*}
+\end{multicols*}
+\end{document}
