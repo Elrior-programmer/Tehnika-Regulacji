@@ -35,20 +35,49 @@
 \clearpage
 \begin{multicols*}{2}
 \section{Analiza układu dynamicznego}
-\subsubsection*{Wybór parametrów równania różniczkowego}
+\subsection{Wybór parametrów równania różniczkowego}
 \begin{center}
     Dla ogólnego równania z instrukcji: 
     \begin{equation}
         \frac{d^2y}{dt^2} + a\frac{dy}{dt} + by = u(t) 
     \end{equation}
-    Przyjęto wartości \textbf{a = 8 i b = 12}
+    Przyjęto wartości \textbf{a = 8 i b = 12} \\ 
+    \textbf{Rozwiązanie analityczne równania}   
+    \begin{equation*}
+        \frac{d^2y}{dt^2} + 8\frac{dy}{dt} + 12y = u(t) \quad \Bigg| \ \mathcal{L}\{\}
+    \end{equation*}
+    \begin{equation*}
+        s^2Y(s) + 8sY(s) + 12Y(s) = U(s)
+    \end{equation*}
+    Przy warunkach początkowych równych zero
+    \begin{equation}
+        Y(s) = \frac{1}{s^2 + 8s +12}U(s)
+    \end{equation}
+    \textbf{Transmitancjia Systemu \{K(s)\}}
+    \begin{equation}
+        K(s) =\frac{Y(s)}{U(s)} = \frac{1}{s^2 + 8s +12}
+    \end{equation}
+    Bieguny transmitancji wynosza \\ \textbf{$s_1$ = -6 i $s_2$ = - 2}
 \end{center}
-\subsubsection*{Rozwiązanie analityczne równania}   
-    \begin{equation*}
-    \frac{d^2y}{dt^2} + 8\frac{dy}{dt} + 12y = u(t) \quad \Bigg| \ \mathcal{L}\{s\}
-    \end{equation*}
-    \begin{equation*}
-        s^2Y(s) + 8sY(s) + 12Y(s) = U(s) 
-    \end{equation*}
+\subsection{Odpowiedź systemu na standardowe pobudzenia}
+\begin{center}
+    \includegraphics[width=\linewidth]{fig/systempods.drawio.png}
+\end{center}
+\subsubsection*{Odpowiedź impulsowa \{k(t)\}}
+\begin{equation*}
+    k(t) = \delta (t) \Rightarrow U(s) = \mathcal{L}\{\delta(t)\}=1
+\end{equation*}
+\begin{equation*}
+    Y(s) = \frac{1}{s^2 + 8s +12}  \quad \Bigg| \ \mathcal{L}^{-1}\{\}
+\end{equation*}
+\begin{equation*}
+    Y(s) = \frac{1}{(s+6)(s+2)} = \frac{A}{s+6} + \frac{B}{s+2} =
+\end{equation*}
+\begin{equation*}
+    = -\frac{1}{4}\frac{1}{s+6} + \frac{1}{4}\frac{1}{s+2} \quad \Bigg| \ \mathcal{L}^{-1}\{\} 
+\end{equation*}
+\begin{equation}
+    k(t) = -\frac{1}{4}(\mathrm{e}^{-6t} - \mathrm{e}^{-2t})
+\end{equation}
 \end{multicols*}
 \end{document}
