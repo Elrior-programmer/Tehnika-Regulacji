@@ -26,7 +26,7 @@ figure;
 hold on;
 
 scatter3(x(idx0), y(idx0), z(idx0), 1, 'r', 'filled');
-%scatter3(x(idx1), y(idx1), z(idx1), 1, 'g', 'filled');
+scatter3(x(idx1), y(idx1), z(idx1), 1, 'g', 'filled');
 
 view(3);
 grid on

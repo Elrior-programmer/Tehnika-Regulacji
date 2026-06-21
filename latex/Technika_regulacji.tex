@@ -132,7 +132,42 @@ Zgodnie z pierwszą metodą Zieglera-Nicholsa z odpowiedzi skokowej wyznaczono $
 Odpowiedzi skokowe układu automatycznej regulacji przedstawiono na rys. \ref{fig:PZN}, \ref{fig:PIZN} oraz \ref{fig:PIDZN}.
 \end{multicols*}
 
-
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{../impulsana}
+	\caption[]{Odpowiedź impulsowa z rozwiązanania analitycznego}
+	\label{fig:imana}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{../skokana}
+	\caption[]{Odpowiedź skokowa z rozwiązanania analitycznego}
+	\label{fig:skana}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{../impulsnumer}
+	\caption[]{Odpowiedź impulsowa z rozwiązanania numerycznego}
+	\label{fig:imnum}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{../impulsana}
+	\caption[]{Odpowiedź skokowa z rozwiązanania numerycznego}
+	\label{fig:sknum}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{../diff_equa}
+	\caption[]{Numeryczne rozwiązanie równania}
+	\label{fig:numrr}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{../nyquist}
+	\caption[]{Charakterystyki nyquista wyznaczone metodą analityczną i numeryczną}
+	\label{fig:nyquist}
+\end{figure}
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\linewidth]{../michailow}
@@ -159,21 +194,27 @@ Odpowiedzi skokowe układu automatycznej regulacji przedstawiono na rys. \ref{fi
 \end{figure}
 \begin{figure}
 	\centering
-	\includegraphics[width=0.7\linewidth]{../ScopePR}
-	\caption[]{Charakterystyka skokowa dla strojenia ręcznego dla regulatora typu P}
-	\label{fig:PR}
+	\includegraphics[width=0.7\linewidth]{../stabP}
+	\caption{Wykres stabilności dla regulatora P}
+	\label{fig:stabp}
 \end{figure}
 \begin{figure}
 	\centering
-	\includegraphics[width=0.7\linewidth]{../ScopePIR}
-	\caption[]{Charakterystyka skokowa dla strojenia ręcznego dla regulatora typu PI}
-	\label{fig:PIR}
+	\includegraphics[width=0.7\linewidth]{../stabPI}
+	\caption{Wykres stabilności dla regulatora PI}
+	\label{fig:stabpi}
 \end{figure}
 \begin{figure}
 	\centering
-	\includegraphics[width=0.7\linewidth]{../ScopePIDR}
-	\caption[]{Charakterystyka skokowa dla strojenia ręcznego dla regulatora typu PID}
-	\label{fig:PIDR}
+	\includegraphics[width=0.7\linewidth]{../stabPID}
+	\caption{Wykres stabilności dla regulatora PID}
+	\label{fig:stabpid}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{../niestabPID}
+	\caption{Wykres stabilności dla regulatora PID bez punktów oznaczających stabilność}
+	\label{fig:niestabpid}
 \end{figure}
 \begin{figure}
 	\centering
@@ -192,5 +233,23 @@ Odpowiedzi skokowe układu automatycznej regulacji przedstawiono na rys. \ref{fi
 	\includegraphics[width=0.7\linewidth]{../ScopePIDZN}
 	\caption[]{Charakterystyka skokowa dla metody Zieglera-Nicholsa dla regulatora typu PID}
 	\label{fig:PIDZN}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{../skok01}
+	\caption{Odpowiedź skokowa obiektów dla T=0.01}
+	\label{fig:skok01}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{../skok1}
+	\caption{Odpowiedź skokowa obiektów dla T=0.1}
+	\label{fig:skok1}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{../skok5}
+	\caption{Odpowiedź skokowa obiektów dla T=0.5}
+	\label{fig:skok5}
 \end{figure}
 \end{document}
