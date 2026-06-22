@@ -190,8 +190,8 @@ Aby system był stabilny w kryterium hurwitza to minory główne wiodące macier
 		1 & 12
 	\end{bmatrix}\\
 	\Delta_1 = 8 >0\\
-	\Delta_2 = 8*12-1*0=96>0\\
-	\Delta_1 > 0 \land \Delta_2 > 0 \implies system\ stabilny
+	\Delta_2 = 8 \cdot 12-1 \cdot 0=96>0\\
+	\Delta_1 > 0 \land \Delta_2 > 0 \implies \textbf{system\ stabilny}
 	\end{gather*} 
 \subsection{Kryterium Michajłowa}
 Aby system był stabilny w kryterium Michajłowa 
@@ -201,10 +201,62 @@ Aby system był stabilny w kryterium Michajłowa
 oraz
 \begin{equation*}
 	\Delta arg_{0\ge \omega \ge \infty} M(j\omega)=m\frac{\pi}{2}
-\end{equation*}
+\end{equation*} 
 Z wykresu \ref{fig:michajlow} można odczytać że zarówno pierwszy warunek tj. nie przechodzenie przez punkt (0,0) jak i drugi tj. przejście przez 2 ćwiartki układu współrzędnych są spełnione a więc na mocy kryterium Michajłowa system jest stabilny.
+\begin{center}
+	\centering
+	\includegraphics[width=0.92\linewidth]{fig/michajlow.png}
+	\captionof{figure}{Charakterystyka Michajłowa}
+	\label{fig:michajlow}
+\end{center}
+
 \subsection{Stabilność układu zamkniętego z regulatorem P}
-Zbadano układ w ujemnej pętli z regulatorem typu P. Wybrano trzy wzmocnienia $k \in {-15, -12, -5}$ zapewniające odpowiednio niestabilności, granicę stabilności oraz stabilność. Odpowiedzi impulsowe przedstawiono na rys. \ref{fig:unstable}, \ref{fig:granica} i \ref{fig:stable}. W przypadku gdy system jest stabilny odpowiedź impulsowa zanika do 0, gdy system jest na granicy stabilności przyjmuje wartość $\neq 0$ oraz $< \infty$, a gdy jest niestabilny dąży do $\infty$.
+
+Zbadano układ w ujemnej pętli z regulatorem typu P. Wybrano trzy wzmocnienia $k \in \textbf{\{-15, -12, -5\}}$ zapewniające odpowiednio niestabilności, granicę stabilności oraz stabilność. Odpowiedzi impulsowe przedstawiono na rys. \ref{fig:unstable}, \ref{fig:granica} i \ref{fig:stable}. W przypadku gdy system jest stabilny odpowiedź impulsowa zanika do 0, gdy system jest na granicy stabilności przyjmuje wartość $\neq 0$ oraz $< \infty$, a gdy jest niestabilny dąży do $\infty$.
+\begin{center}\small
+\begin{tabularx}{\linewidth}{l l l}
+\toprule
+$k_p$ & bieguny & charakter \\
+\midrule
+$-15$    & $-8.36;\ +0.36$  & niestabilny \\
+$-12$ & $0;\ -8$ & granica \\
+$-5$   & $-7;\ -1$  & stabilny \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\begin{center}
+	\centering
+	\includegraphics[width=0.92\linewidth]{fig/bieguny.png}
+\end{center}
+\begin{center}
+	\includegraphics[width=0.92\linewidth]{fig/k=-15.png}
+	\captionof{figure}{Charakterystyka impulsowa dla k = -15}
+	\label{fig:unstable}
+\end{center}
+\begin{center}
+	\includegraphics[width=0.92\linewidth]{fig/k=-12.png}
+	\captionof{figure}{Charakterystyka impulsowa dla k = -12}
+	\label{fig:granica}
+\end{center}
+\begin{center}
+	\includegraphics[width=0.92\linewidth]{fig/k=-5.png}
+	\captionof{figure}{Charakterystyka impulsowa dla k = -5}
+	\label{fig:stable}
+\end{center}
+
+\subsection{Porównanie kryteriów i wnioski (cz. 3)}
+Trzy zastosowane metody dają spójny obraz stabilności:
+\begin{itemize}[leftmargin=*, nosep]
+\item \textbf{Hurwitz} kryterium algebraiczne, najszybsze; bezpośrednio podaje
+warunek $k_p>-12$, lecz nie informuje o~dynamice (rozkładzie biegunów).
+\item \textbf{Michajłow} kryterium graficzne; potwierdza stabilność układu otwartego
+poprzez analizę przyrostu argumentu, czytelne lecz wymagające wykreślenia hodografu.
+\item \textbf{Analiza biegunów / pętli $k_p$} najbogatsza informacyjnie: pokazuje
+nie tylko fakt stabilności, ale i~jej zapas oraz charakter odpowiedzi.
+\end{itemize}
+
+
 \section{Regulacja PID}
 W kolejnych zadaniach transmitancja układu to: $K(s)=\frac{1}{s^4+5s^3+7s^2+8s+1}$
 \subsection{Metoda Zieglera–Nicholsa}
@@ -226,30 +278,7 @@ Nastawy I dla poszczególnych T, T=.1 I= 4.6465,T=1 I= 32.1212, T=5 I=87.2727
 	\caption[]{Numeryczne rozwiązanie równania}
 	\label{fig:numrr}
 \end{figure}
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\linewidth]{../michailow}
-	\caption[]{Charakterystyka Michajłowa}
-	\label{fig:michajlow}
-\end{figure}
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\linewidth]{../unstable}
-	\caption[]{Charakterystyka impulsowa dla k = -15}
-	\label{fig:unstable}
-\end{figure}
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\linewidth]{../granica}
-	\caption[]{Charakterystyka impulsowa dla k = -12}
-	\label{fig:granica}
-\end{figure}
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\linewidth]{../stabilny}
-	\caption[]{Charakterystyka impulsowa dla k = -5}
-	\label{fig:stable}
-\end{figure}
+
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\linewidth]{../stabP}
