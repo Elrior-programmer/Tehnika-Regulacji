@@ -102,8 +102,7 @@ Równanie zapisano w~postaci równań stanu ($x_1=y,\ x_2=\dot y$):
     \dot{x} = \underbrace{\begin{bmatrix} 0 & 1 \\ -12 & -8 \end{bmatrix}}_{A}x
             + \begin{bmatrix} 0 \\ 1 \end{bmatrix}u, \quad
     y = \begin{bmatrix} 1 & 0 \end{bmatrix}x,
-\end{equation}
-i całkowano numerycznie procedurą \texttt{ode45} (metoda Rungego-Kutty rzędu 4/5).
+	\end{equation}
 Odpowiedzi impulsową i skokową wyznaczono dodatkowo funkcjami \texttt{impulse}
 i \texttt{step}.
 
@@ -129,6 +128,59 @@ poprawność zarówno wyprowadzeń analitycznych, jak i modelu numerycznego.
 
 
 \section{Analiza częstotliwościowa}
+
+\subsection{Charakterystyka analityczna}
+Podstawiając $s=j\omega$ do transmitancji:
+\begin{equation}
+    K(j\omega) = \frac{1}{(12-\omega^2) + j\,8\omega}.
+\end{equation}
+Moduł i~argument (charakterystyka amplitudowo-fazowa):
+\begin{align}
+    |K(j\omega)| &= \frac{1}{\sqrt{(12-\omega^2)^2 + (8\omega)^2}},\\[2pt]
+    \varphi(\omega) &= -\arctan\!\frac{8\omega}{12-\omega^2}.
+\end{align}
+Wartości graniczne: $|K(0)|=\tfrac{1}{12}$ ($\varphi=0$), a dla $\omega\to\infty$
+moduł maleje jak $\omega^{-2}$, zaś $\varphi\to-180^\circ$.
+Dla $\omega=\sqrt{12}=\omega_n$ część rzeczywista mianownika zeruje się, więc
+$\varphi=-90^\circ$.
+
+\subsection{Wyznaczenie eksperymentalne}
+Układ pobudzano sygnałem $u(t)=\sin(\omega_0 t)$ dla zestawu pulsacji $\omega_0$.
+
+\begin{center}
+\captionof{table}{Punkty charakterystyki Nyquista wyznaczone z odpowiedzi ustalonej}
+\label{tab:nyquist}
+\begin{tabular}{|c|r|r|r|r|}
+\hline
+$\omega$ [rad/s] & $\mathrm{Re}\{G\}$ & $\mathrm{Im}\{G\}$ & $|G|$ & $\varphi$ [$^\circ$] \\
+\hline
+0.50 & $ 0.076$ & $-0.026$ & $0.081$ & $ -18.8$ \\
+1.00 & $ 0.059$ & $-0.043$ & $0.074$ & $ -36.0$ \\
+2.00 & $ 0.025$ & $-0.050$ & $0.056$ & $ -63.4$ \\
+3.00 & $ 0.005$ & $-0.041$ & $0.041$ & $ -82.9$ \\
+4.00 & $-0.004$ & $-0.031$ & $0.031$ & $ -97.1$ \\
+6.00 & $-0.008$ & $-0.017$ & $0.019$ & $-116.6$ \\
+9.00 & $-0.007$ & $-0.007$ & $0.010$ & $-133.8$ \\
+\hline
+\end{tabular}
+\end{center}
+
+Po zaniku składowej przejściowej rejestrowano odpowiedź ustaloną
+$y_\text{ust}(t)=A\sin(\omega_0 t+\varphi)$. Amplitudę $A$ i~fazę $\varphi$ wyznaczano
+metodą najmniejszych kwadratów
+
+\begin{center}
+    \includegraphics[width=0.92\linewidth]{fig/nyquist.png}
+    \captionof{figure}{Charakterystyka Nyquista $K(j\omega)$}
+    \label{fig:nyq}
+\end{center}
+
+\subsection{Wnioski (cz. 2)}
+Charakterystyki wyznaczone analitycznie i~eksperymentalnie są praktycznie identyczne
+(różnice $<\!0{,}1\%$ amplitudy oraz $<\!0{,}1^\circ$ fazy). Układ ma charakter \textbf{dolnoprzepustowy}:
+najsilniej przenosi składowe wolnozmienne, a~powyżej $\omega_n$ tłumi sygnał. Charakterystyka Nyquista nie obejmuje punktu $(-1,j0)$, co zapowiada
+stabilność układu zamkniętego dla szerokiego zakresu wzmocnień
+
 \section{Stabilność systemu}
 \subsection{Kryterium Hurwitza}
 Aby system był stabilny w kryterium hurwitza to minory główne wiodące macierzy Hurwitza zbudowanej ze współczynników mianownika transmitancji systemu muszą być dodatnia.
@@ -170,12 +222,6 @@ Odpowiedzi skokowe układu automatycznej regulacji przedstawiono na rys. \ref{fi
 	\includegraphics[width=0.7\linewidth]{../diff_equa}
 	\caption[]{Numeryczne rozwiązanie równania}
 	\label{fig:numrr}
-\end{figure}
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\linewidth]{../nyquist}
-	\caption[]{Charakterystyki nyquista wyznaczone metodą analityczną i numeryczną}
-	\label{fig:nyquist}
 \end{figure}
 \begin{figure}
 	\centering
