@@ -1,24 +1,27 @@
 clear
-sys = tf(1, [1 8 12]);
-dsys = c2d(sys, 0.1);
-P=17;
+sys = tf(1, [1 5 7 8 1]);
+dsys = c2d(sys, 5);
+P=2;
 I=0;
-samples = 500
+samples = 100;
 uchyb = [samples];
 out = sim("zadanie5sim.slx");
-for I=samples-100:samples%sum(out.uchyb.*out.uchyb) < min_uchyb
-    uchyb(I) = sum(out.uchyb.*out.uchyb);
+it = 0;
+for I=linspace(80,90, samples)
+    it = it +1;
+    uchyb(it) = sum(out.uchyb.*out.uchyb);
+    i(it) = I;
     out = sim("zadanie5sim.slx");
 end
 plot(uchyb)
-for j = 1:100
+for j = 1:samples
 if uchyb(j) == min(uchyb)
-j
+i(j)
 end
 end
 %figure
 %hold on
 %step(sys, dsys)
-%title("Odpowiedź skokowa dla T=0.5")
+%title("Odpowiedź skokowa dla T=5")
 %xlabel("czas")
 %ylabel("Amplituda")

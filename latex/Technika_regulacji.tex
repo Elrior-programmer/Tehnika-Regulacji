@@ -206,16 +206,19 @@ Z wykresu \ref{fig:michajlow} można odczytać że zarówno pierwszy warunek tj.
 \subsection{Stabilność układu zamkniętego z regulatorem P}
 Zbadano układ w ujemnej pętli z regulatorem typu P. Wybrano trzy wzmocnienia $k \in {-15, -12, -5}$ zapewniające odpowiednio niestabilności, granicę stabilności oraz stabilność. Odpowiedzi impulsowe przedstawiono na rys. \ref{fig:unstable}, \ref{fig:granica} i \ref{fig:stable}. W przypadku gdy system jest stabilny odpowiedź impulsowa zanika do 0, gdy system jest na granicy stabilności przyjmuje wartość $\neq 0$ oraz $< \infty$, a gdy jest niestabilny dąży do $\infty$.
 \section{Regulacja PID}
+W kolejnych zadaniach transmitancja układu to: $K(s)=\frac{1}{s^4+5s^3+7s^2+8s+1}$
 \subsection{Metoda Zieglera–Nicholsa}
-Zgodnie z pierwszą metodą Zieglera-Nicholsa z odpowiedzi skokowej wyznaczono $T=0.8$ oraz $L=1.2$. Na ich podstawie wyznaczono wartości $K_p$, $T_i$ oraz $T_d$ na podstawie poniższej tabeli.\\
+Zgodnie z drugą metodą Zieglera-Nicholsa doprowadzono układ do niegasnących oscylacji i wyznaczono $K_u$ oraz $T_u$. Na ich podstawie wyznaczono wartości $K_p$, $T_i$ oraz $T_d$ na podstawie poniższej tabeli.\\
 \begin{tabular}{|c|c|c|c|}
 	\hline
 	& $K_p$   & $T_i$    & $T_d$ \\ \hline
-	P   & T/L     & $\infty$ & 0     \\ \hline
-	PI  & T/L*0.9 & L/0.3    & 0     \\ \hline
-	PID & T/L*1.2 & L*2      & 0.5*L \\ \hline
+	P   & $0.5K_u $    & $\infty$ & 0     \\ \hline
+	PI  & $0.45K_u $  & $0.54K_u/T_u $    & 0     \\ \hline
+	PID & $0.6K_u $  & $1.2K_u/T_u $      & $0.075K_u/T_u $ \\ \hline
 \end{tabular}\\
 Odpowiedzi skokowe układu automatycznej regulacji przedstawiono na rys. \ref{fig:PZN}, \ref{fig:PIZN} oraz \ref{fig:PIDZN}.
+\section{Dyskretyzacja systemu ciągłego}
+Nastawy I dla poszczególnych T, T=.1 I= 4.6465,T=1 I= 32.1212, T=5 I=87.2727
 \end{multicols*}
 \begin{figure}
 	\centering
@@ -292,19 +295,19 @@ Odpowiedzi skokowe układu automatycznej regulacji przedstawiono na rys. \ref{fi
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\linewidth]{../skok01}
-	\caption{Odpowiedź skokowa obiektów dla T=0.01}
+	\caption{Odpowiedź skokowa obiektów dla T=0.1}
 	\label{fig:skok01}
 \end{figure}
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\linewidth]{../skok1}
-	\caption{Odpowiedź skokowa obiektów dla T=0.1}
+	\caption{Odpowiedź skokowa obiektów dla T=1}
 	\label{fig:skok1}
 \end{figure}
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\linewidth]{../skok5}
-	\caption{Odpowiedź skokowa obiektów dla T=0.5}
+	\caption{Odpowiedź skokowa obiektów dla T=5}
 	\label{fig:skok5}
 \end{figure}
 
