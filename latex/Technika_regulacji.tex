@@ -256,88 +256,256 @@ poprzez analizę przyrostu argumentu, czytelne lecz wymagające wykreślenia hod
 nie tylko fakt stabilności, ale i~jej zapas oraz charakter odpowiedzi.
 \end{itemize}
 
+\section{Synteza i optymalizacja regulatorów}
+Od tego momentu rozpatrywany jest obiekt czwartego rzędu
+\begin{equation}
+    K(s)=\frac{1}{s^4+5s^3+7s^2+8s+1}.
+\end{equation}
+Bieguny obiektu otwartego wynoszą $-3{,}67$, $-0{,}60\pm1{,}26j$ oraz
+$-0{,}14$. Wszystkie leżą w~lewej półpłaszczyźnie, więc obiekt jest
+\textbf{stabilny}, lecz słabo tłumiony i~wolny (najwolniejszy biegun $-0{,}14$).
 
-\section{Regulacja PID}
-W kolejnych zadaniach transmitancja układu to: $K(s)=\frac{1}{s^4+5s^3+7s^2+8s+1}$
-\subsection{Metoda Zieglera–Nicholsa}
-Zgodnie z drugą metodą Zieglera-Nicholsa doprowadzono układ do niegasnących oscylacji i wyznaczono $K_u$ oraz $T_u$. Na ich podstawie wyznaczono wartości $K_p$, $T_i$ oraz $T_d$ na podstawie poniższej tabeli.\\
-\begin{tabular}{|c|c|c|c|}
-	\hline
-	& $K_p$   & $T_i$    & $T_d$ \\ \hline
-	P   & $0.5K_u $    & $\infty$ & 0     \\ \hline
-	PI  & $0.45K_u $  & $0.54K_u/T_u $    & 0     \\ \hline
-	PID & $0.6K_u $  & $1.2K_u/T_u $      & $0.075K_u/T_u $ \\ \hline
-\end{tabular}\\
-Odpowiedzi skokowe układu automatycznej regulacji przedstawiono na rys. \ref{fig:PZN}, \ref{fig:PIZN} oraz \ref{fig:PIDZN}.
-\section{Dyskretyzacja systemu ciągłego}
-Nastawy I dla poszczególnych T, T=.1 I= 4.6465,T=1 I= 32.1212, T=5 I=87.2727
+\subsection{Eksperymentalne wyznaczenie obszarów stabilności}
+Badano układ w~ujemnej pętli sprzężenia zwrotnego z~regulatorem
+$C(s)=k_p+\dfrac{k_i}{s}+k_d s$. Dla każdej kombinacji nastaw wyznaczano
+pierwiastki wielomianu charakterystycznego układu zamkniętego
+$1+C(s)K(s)=0$ i~sprawdzano warunek $\max\mathrm{Re}\{s_i\}<0$.
+
+\subsubsection*{Regulator P}
+Równanie charakterystyczne:
+\begin{equation*}
+    s^4+5s^3+7s^2+8s+(1+k_p)=0 .
+\end{equation*}
+Z~kryterium Routha--Hurwitza (oraz z~przemiatania $k_p$, rys.~\ref{fig:p4Pstab})
+układ jest stabilny dla
+\begin{equation}
+    -1<k_p<7{,}64 .
+\end{equation}
+Górna granica to \textbf{wzmocnienie krytyczne} $K_u=7{,}64$; przy tej wartości
+para biegunów leży na osi urojonej w~$\pm j\,1{,}265$, co odpowiada
+niegasnącym oscylacjom o~okresie $T_u=2\pi/\omega_u\approx4{,}97$~s
+(rys.~\ref{fig:p4osc}).
+
+\begin{center}
+    \includegraphics[width=\linewidth]{fig/p4_P_stab.png}
+    \captionof{figure}{Regulator P — maksymalna część rzeczywista biegunów
+    układu zamkniętego w~funkcji $k_p$; przejście przez zero wyznacza $K_u$.}
+    \label{fig:p4Pstab}
+\end{center}
+\begin{center}
+    \includegraphics[width=\linewidth]{fig/p4_oscylacje.png}
+    \captionof{figure}{Oscylacje graniczne dla $k_p=K_u$ — pomiar okresu $T_u$.}
+    \label{fig:p4osc}
+\end{center}
+
+\subsubsection*{Regulator PI}
+Dla $C(s)=k_p+k_i/s$ równanie charakterystyczne ma postać
+\begin{equation*}
+    s^5+5s^4+7s^3+8s^2+(1+k_p)s+k_i=0 .
+\end{equation*}
+Obszar stabilności jest dwuwymiarowy (rys.~\ref{fig:p4PIreg}). Dla $k_i\to0$
+degeneruje się on do przedziału regulatora P, a~ze wzrostem $k_i$ zakres
+dopuszczalnych $k_p$ zawęża się całkowanie wprowadza dodatkowe przesunięcie
+fazowe pogarszające zapas stabilności.
+
+\begin{center}
+    \includegraphics[width=\linewidth]{fig/p4_PI_region.png}
+    \captionof{figure}{Obszar stabilności regulatora PI w~płaszczyźnie $(k_p,k_i)$.}
+    \label{fig:p4PIreg}
+\end{center}
+
+\subsubsection*{Regulator PID}
+Dla $C(s)=(k_d s^2+k_p s+k_i)/s$:
+\begin{equation*}
+    s^5+5s^4+7s^3+(8{+}k_d)s^2+(1{+}k_p)s+k_i=0 .
+\end{equation*}
+Obszar stabilności jest bryłą w~przestrzeni $(k_p,k_i,k_d)$
+(rys.~\ref{fig:p4PIDreg}). Człon różniczkujący $k_d$ powiększa współczynnik przy
+$s^2$, dzięki czemu dopuszczalne stają się większe wzmocnienia $k_p$ i~$k_i$
+objętość obszaru stabilnego rośnie wraz z~$k_d$.
+
+\begin{center}
+    \includegraphics[width=\linewidth]{fig/p4_PID_region.png}
+    \captionof{figure}{Obszar stabilności regulatora PID — zbiór nastaw
+    $(k_p,k_i,k_d)$ zapewniających stabilność.}
+    \label{fig:p4PIDreg}
+\end{center}
+
+\subsection{Metoda Zieglera--Nicholsa}
+Wykorzystano drugą (zamkniętą) metodę Z--N. Doprowadzając układ z~regulatorem P
+do granicy stabilności odczytano $K_u=7{,}64$ oraz $T_u=4{,}97$~s. Nastawy
+wyznaczono z~klasycznej tablicy (postać równoległa
+$C(s)=k_p+k_i/s+k_d s$, gdzie $k_i=k_p/T_i$, $k_d=k_p T_d$):
+
+\begin{center}\small
+\begin{tabular}{lccc}
+\toprule
+ & $k_p$ & $T_i$ & $T_d$ \\
+\midrule
+P   & $0{,}5K_u$  & $\infty$  & $0$ \\
+PI  & $0{,}45K_u$ & $T_u/1{,}2$ & $0$ \\
+PID & $0{,}6K_u$  & $T_u/2$ & $T_u/8$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+co po podstawieniu daje:
+\begin{center}\small
+\begin{tabular}{lccc}
+\toprule
+ & $k_p$ & $k_i$ & $k_d$ \\
+\midrule
+P   & $3{,}82$ & --        & --       \\
+PI  & $3{,}44$ & $0{,}83$  & --       \\
+PID & $4{,}58$ & $1{,}85$  & $2{,}85$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Odpowiedzi skokowe układu zamkniętego ($y^\ast=1$) zestawiono na
+rys.~\ref{fig:p4ZN}.
+
+\begin{center}
+    \includegraphics[width=\linewidth]{fig/p4_ZN_odpowiedzi.png}
+    \captionof{figure}{Odpowiedź skokowa UAR dla nastaw Zieglera--Nicholsa.}
+    \label{fig:p4ZN}
+\end{center}
+
+Regulator P pozostawia uchyb ustalony ($y_\infty\approx0{,}79$, tj.\ $\sim21\%$),
+ponieważ nie zawiera akcji całkującej. Regulatory PI i~PID sprowadzają uchyb
+ustalony do zera. Wszystkie odpowiedzi są zgodnie z~charakterem metody Z-N
+silnie oscylacyjne (przeregulowanie $\sim\!26\%$ dla P, $\sim\!30\%$ dla PI,
+$\sim\!32\%$ dla PID); PID jest najszybszy (najkrótszy czas regulacji), PI
+nieco wolniejszy, a~P niedokładny.
+
+\subsection{Porównanie i wnioski}
+\textbf{Obszary stabilności.} Wymiar obszaru rośnie z~liczbą nastaw: P daje
+\emph{odcinek} ($-1<k_p<7{,}64$), PI \emph{obszar} dwuwymiarowy, a~PID
+\emph{bryłę} trójwymiarową. Każdy dodatkowy człon zwiększa liczbę stopni
+swobody, ale jednocześnie obszar dopuszczalny silnie zależy od pozostałych
+nastaw (np.\ w~PI duże $k_i$ wymusza małe $k_p$).
+
+\textbf{Ocena metody Z--N.}
+\begin{itemize}[leftmargin=*, nosep]
+\item \emph{Zalety:} prostota, brak konieczności znajomości modelu, oparcie
+tylko na dwóch łatwo mierzalnych parametrach $K_u,\,T_u$; szybki punkt startowy
+strojenia.
+\item \emph{Wady:} agresywne, mocno oscylacyjne odpowiedzi (duże
+przeregulowanie), konieczność doprowadzenia obiektu do granicy stabilności
+(niebezpieczne dla obiektów rzeczywistych), brak uwzględnienia ograniczeń
+i~szumów; nastawy zwykle wymagają dostrojenia.
+\end{itemize}
+
+\textbf{Ocena regulatorów.}
+\begin{itemize}[leftmargin=*, nosep]
+\item \textbf{P} — najprostszy i~najpewniejszy, lecz z~niezerowym uchybem
+ustalonym.
+\item \textbf{PI} — zeruje uchyb ustalony, kosztem zmniejszenia zapasu
+stabilności i~wolniejszej odpowiedzi.
+\item \textbf{PID} — najszybszy i~najlepiej tłumiony (człon $D$ powiększa zapas),
+ale wrażliwy na szum sygnału pomiarowego i~wymaga strojenia trzech nastaw.
+\end{itemize}
+
+% =====================================================================
+%  PROJEKT 5
+% =====================================================================
+\section{Dyskretyzacja i optymalizacja}
+\subsection{Dyskretyzacja systemu ciągłego}
+Obiekt ciągły $K(s)$ przekształcono do postaci dyskretnej $K_d(z)$ metodą
+ekstrapolatora zerowego rzędu (ZOH, funkcja \texttt{c2d}) dla trzech okresów
+próbkowania $T_1=0{,}1$~s, $T_2=1$~s, $T_3=5$~s. Bieguny dyskretne odpowiadają
+ciągłym przez $z_i=\mathrm{e}^{s_i T}$:
+
+\begin{center}\small
+\captionof{table}{Bieguny modelu dyskretnego i~ich moduł.}
+\begin{tabular}{ccc}
+\toprule
+$T$ [s] & $|z|_{\max}$ & stabilność \\
+\midrule
+$0{,}1$ & $0{,}986$ & stabilny \\
+$1{,}0$ & $0{,}869$ & stabilny \\
+$5{,}0$ & $0{,}495$ & stabilny \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Wszystkie bieguny leżą wewnątrz okręgu jednostkowego ($|z|<1$), więc
+dyskretyzacja ZOH zachowuje stabilność obiektu dla każdego z~okresów.
+Porównanie odpowiedzi skokowych (rys.~\ref{fig:p5disc}) pokazuje, że dla
+$T=0{,}1$~s przebieg schodkowy praktycznie pokrywa się z~ciągłym, dla $T=1$~s
+widoczna jest dyskretyzacja, a~dla $T=5$~s model odtwarza jedynie zgrubny
+zarys dynamiki — między próbkami traci się informację, a~efektywne opóźnienie
+($\approx T/2$) staje się znaczące względem stałych czasowych obiektu.
+
+\begin{center}
+    \includegraphics[width=\linewidth]{fig/p5_dyskretyzacja.png}
+    \captionof{figure}{Odpowiedź skokowa obiektu ciągłego i~jego wersji
+    dyskretnych (ZOH) dla trzech okresów próbkowania.}
+    \label{fig:p5disc}
+\end{center}
+
+\subsection{Wyznaczanie regulatora optymalnego}
+Dla dyskretnej wersji obiektu i~regulatora PI (całkowanie metodą Eulera
+wstecznego, $C(z)=k_p+k_i T\,z/(z-1)$) przeprowadzono optymalizację
+minimalizującą całkową energię uchybu
+\begin{equation}
+    Q(k_p,k_i)=\int_0^\infty \epsilon^2(t)\,dt \approx \sum_{n} \epsilon^2[n]\,T .
+\end{equation}
+Przy ustalonym $k_p=1{,}5$ przemiatano $k_i$, odrzucając wartości dające
+układ niestabilny ($|z|\ge1$). Przebiegi $Q(k_i)$ z~zaznaczonymi minimami
+przedstawia rys.~\ref{fig:p5Q}, a~odpowiedzi dla nastaw optymalnych —
+rys.~\ref{fig:p5opt}.
+
+\begin{center}
+    \includegraphics[width=\linewidth]{fig/p5_Q_ki.png}
+    \captionof{figure}{Funkcja kryterialna $Q(k_i)$ przy ustalonym $k_p=1{,}5$.}
+    \label{fig:p5Q}
+\end{center}
+\begin{center}
+    \includegraphics[width=\linewidth]{fig/p5_opt_odpowiedzi.png}
+    \captionof{figure}{Odpowiedź UAR z~optymalnym regulatorem PI dla różnych $T$.}
+    \label{fig:p5opt}
+\end{center}
+
+\begin{center}\small
+\captionof{table}{Optymalne nastawy całkujące i~wartość kryterium.}
+\begin{tabular}{ccc}
+\toprule
+$T$ [s] & $k_i^\ast$ & $Q_{\min}$ \\
+\midrule
+$0{,}1$ & $0{,}44$ & $2{,}64$ \\
+$1{,}0$ & $0{,}39$ & $2{,}93$ \\
+$5{,}0$ & $0{,}17$ & $5{,}07$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Porównanie i wniosk}
+\textbf{Wpływ dyskretyzacji.} Metoda ZOH wiernie odtwarza dynamikę obiektu, gdy
+okres próbkowania jest mały względem stałych czasowych. Wraz ze wzrostem $T$
+rośnie efektywne opóźnienie i~maleje ilość informacji o~przebiegu między
+próbkami; dla $T=5$~s model jest już zgrubny, choć wciąż stabilny.
+
+\textbf{Optymalne nastawy.} Funkcja $Q(k_i)$ jest wypukła — istnieje wyraźne
+minimum: zbyt małe $k_i$ daje wolną, „leniwą'' odpowiedź (duży skumulowany
+uchyb), a~zbyt duże — silne oscylacje aż do utraty stabilności
+(rys.~\ref{fig:p5Q}). Optymalne $k_i^\ast$ \textbf{maleje} ze wzrostem okresu
+próbkowania ($0{,}44\to0{,}39\to0{,}17$), a~minimalna osiągalna wartość
+kryterium $Q_{\min}$ \textbf{rośnie} ($2{,}64\to2{,}93\to5{,}07$), co
+zilustrowano na rys.~\ref{fig:p5kivsT}.
+
+\begin{center}
+    \includegraphics[width=\linewidth]{fig/p5_ki_vs_T.png}
+    \captionof{figure}{Wpływ okresu próbkowania na nastawę optymalną $k_i^\ast$
+    oraz na osiągalną jakość regulacji $Q_{\min}$.}
+    \label{fig:p5kivsT}
+\end{center}
+
+Wniosek ogólny: rzadsze próbkowanie wprowadza opóźnienie zmniejszające zapas
+stabilności, co zmusza do osłabienia akcji całkującej (mniejsze $k_i^\ast$)
+i~jednocześnie pogarsza osiągalną dokładność (większe $Q_{\min}$). Najlepsze
+wyniki uzyskuje się dla najgęstszego próbkowania $T=0{,}1$~s, najbliższego
+zachowaniu układu ciągłego.
+
 \end{multicols*}
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\linewidth]{../diff_equa}
-	\caption[]{Numeryczne rozwiązanie równania}
-	\label{fig:numrr}
-\end{figure}
-
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\linewidth]{../stabP}
-	\caption{Wykres stabilności dla regulatora P}
-	\label{fig:stabp}
-\end{figure}
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\linewidth]{../stabPI}
-	\caption{Wykres stabilności dla regulatora PI}
-	\label{fig:stabpi}
-\end{figure}
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\linewidth]{../stabPID}
-	\caption{Wykres stabilności dla regulatora PID}
-	\label{fig:stabpid}
-\end{figure}
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\linewidth]{../niestabPID}
-	\caption{Wykres stabilności dla regulatora PID bez punktów oznaczających stabilność}
-	\label{fig:niestabpid}
-\end{figure}
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\linewidth]{../ScopePZN}
-	\caption[]{Charakterystyka skokowa dla metody Zieglera-Nicholsa dla regulatora typu P}
-	\label{fig:PZN}
-\end{figure}
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\linewidth]{../ScopePIZN}
-	\caption[]{Charakterystyka skokowa dla metody Zieglera-Nicholsa dla regulatora typu PI}
-	\label{fig:PIZN}
-\end{figure}
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\linewidth]{../ScopePIDZN}
-	\caption[]{Charakterystyka skokowa dla metody Zieglera-Nicholsa dla regulatora typu PID}
-	\label{fig:PIDZN}
-\end{figure}
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\linewidth]{../skok01}
-	\caption{Odpowiedź skokowa obiektów dla T=0.1}
-	\label{fig:skok01}
-\end{figure}
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\linewidth]{../skok1}
-	\caption{Odpowiedź skokowa obiektów dla T=1}
-	\label{fig:skok1}
-\end{figure}
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\linewidth]{../skok5}
-	\caption{Odpowiedź skokowa obiektów dla T=5}
-	\label{fig:skok5}
-\end{figure}
-
 \end{document}
